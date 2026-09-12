@@ -93,11 +93,12 @@
       display: block;
       transform: translate(-15px, -14px);
       mix-blend-mode: multiply;
+      filter: saturate(1.18) contrast(1.08) hue-rotate(-4deg);
     }
 
     .brand-by {
       margin: 0 0 9px -4px;
-      color: #122b55;
+      color: var(--blue-deep);
       font-size: 10px;
       font-weight: 800;
       line-height: 1.05;
@@ -565,8 +566,47 @@
       font-size: 15px;
     }
 
+    .feature-ticker {
+      position: relative;
+      margin: 16px 0 0;
+      overflow: hidden;
+      background: var(--navy);
+      color: #fff;
+      transform: rotate(-1.4deg) scaleX(1.02);
+      box-shadow: 0 18px 40px rgba(6, 21, 68, .16);
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+
+    .ticker-set {
+      display: flex;
+      align-items: center;
+      gap: 52px;
+      padding: 25px 26px;
+      white-space: nowrap;
+      font-size: clamp(24px, 3vw, 42px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .ticker-star {
+      color: #c7ff63;
+      font-size: .86em;
+      line-height: 1;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
     .trust {
-      padding: 28px 0 48px;
+      padding: 58px 0 48px;
       background: #fff;
     }
 
@@ -939,6 +979,16 @@
     }
 
     @media (max-width: 860px) {
+      .feature-ticker {
+        margin-top: 6px;
+        transform: rotate(-1.8deg) scaleX(1.06);
+      }
+
+      .ticker-set {
+        gap: 34px;
+        padding: 20px 18px;
+      }
+
       .topbar {
         min-height: 82px;
         justify-content: space-between;
@@ -1053,6 +1103,20 @@
     }
 
     @media (max-width: 560px) {
+      .feature-ticker {
+        transform: rotate(-2.1deg) scaleX(1.09);
+      }
+
+      .ticker-track {
+        animation-duration: 22s;
+      }
+
+      .ticker-set {
+        gap: 26px;
+        padding: 17px 14px;
+        font-size: 24px;
+      }
+
       .wrap {
         width: calc(100% - 32px);
       }
@@ -1251,6 +1315,27 @@
             </ul>
             <div class="clover"><span class="clover-badge">clover</span><span>Order sent ✓</span></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-ticker" aria-label="Penny capabilities">
+      <div class="ticker-track">
+        <div class="ticker-set">
+          <span>answers instantly</span><span class="ticker-star">✦</span>
+          <span>takes the full order</span><span class="ticker-star">✦</span>
+          <span>handles the rush</span><span class="ticker-star">✦</span>
+          <span>knows when to transfer</span><span class="ticker-star">✦</span>
+          <span>customized for your industry</span><span class="ticker-star">✦</span>
+          <span>sends clean tickets</span><span class="ticker-star">✦</span>
+        </div>
+        <div class="ticker-set" aria-hidden="true">
+          <span>answers instantly</span><span class="ticker-star">✦</span>
+          <span>takes the full order</span><span class="ticker-star">✦</span>
+          <span>handles the rush</span><span class="ticker-star">✦</span>
+          <span>knows when to transfer</span><span class="ticker-star">✦</span>
+          <span>customized for your industry</span><span class="ticker-star">✦</span>
+          <span>sends clean tickets</span><span class="ticker-star">✦</span>
         </div>
       </div>
     </section>
