@@ -129,7 +129,7 @@
   <script>
     document.querySelectorAll('.use-grid,.steps').forEach(group=>{[...group.children].forEach((child,index)=>{child.classList.add('fly-card','reveal');child.style.setProperty('--fly-delay',`${index*130}ms`);if(child.classList.contains('step'))child.tabIndex=0})});
     document.querySelectorAll('#fit .panel').forEach((panel,index)=>{panel.classList.add('fit-panel');panel.style.setProperty('--panel-x',index===0?'-58px':'58px');panel.style.setProperty('--panel-delay',`${index*120}ms`)});
-    const reveal=()=>document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*.9)el.classList.add('on')});addEventListener('scroll',reveal,{passive:true});reveal();
+    const reveal=()=>document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect(),visible=r.top<innerHeight*.88&&r.bottom>innerHeight*.08;el.classList.toggle('on',visible)});addEventListener('scroll',reveal,{passive:true});addEventListener('resize',reveal,{passive:true});reveal();
     const navLinks=[...document.querySelectorAll('.nav-link,.menu-link')];
     const setActiveNav=()=>{let activeHref='#how';navLinks.forEach(link=>{const section=document.querySelector(link.getAttribute('href'));if(section&&section.getBoundingClientRect().top<innerHeight*.48)activeHref=link.getAttribute('href')});navLinks.forEach(link=>link.classList.toggle('is-active',link.getAttribute('href')===activeHref))};
     addEventListener('scroll',setActiveNav,{passive:true});setActiveNav();
