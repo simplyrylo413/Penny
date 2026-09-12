@@ -274,15 +274,17 @@
 
     .visual {
       position: relative;
-      min-height: 560px;
+      min-height: 575px;
+      margin-left: -18px;
     }
 
     .phone {
       position: absolute;
-      left: 42%;
-      top: 70px;
-      transform: translateX(-50%);
-      width: min(268px, 52vw);
+      left: 10px;
+      top: 58px;
+      transform: rotate(-3.5deg);
+      transform-origin: 50% 90%;
+      width: min(286px, 52vw);
       aspect-ratio: 9 / 18.7;
       border-radius: 44px;
       padding: 14px;
@@ -435,23 +437,24 @@
     }
 
     .order-card {
-      top: 155px;
-      right: 18px;
-      width: 220px;
+      top: 118px;
+      left: 248px;
+      right: auto;
+      width: 224px;
       padding: 16px;
     }
 
     .handoff-card {
-      right: 22px;
-      bottom: 60px;
+      right: 4px;
+      bottom: 66px;
       width: 220px;
       padding: 17px;
     }
 
     .quote-card {
-      left: 62px;
-      top: 32px;
-      width: 248px;
+      left: 132px;
+      top: 18px;
+      width: 252px;
       padding: 24px 22px;
       color: #60708d;
       font-family: "Fraunces", Georgia, serif;
@@ -939,17 +942,30 @@
         grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr);
       }
 
+      .visual {
+        margin-left: -8px;
+      }
+
       .phone {
-        left: 38%;
-        width: 250px;
+        left: 0;
+        width: 266px;
       }
 
       .order-card {
-        right: 0;
+        left: 226px;
+        right: auto;
+        top: 128px;
+        width: 214px;
       }
 
       .handoff-card {
         right: 0;
+        bottom: 70px;
+        width: 212px;
+      }
+
+      .quote-card {
+        left: 104px;
       }
 
       h1 {
