@@ -185,8 +185,8 @@
       z-index: -1;
       top: 0;
       right: 0;
-      width: 48%;
-      height: 760px;
+      width: 50%;
+      height: 720px;
       border-bottom-left-radius: 84px;
       background:
         linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.36) 30%, rgba(255,255,255,0) 58%),
@@ -196,8 +196,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.03fr) minmax(390px, .97fr);
-      gap: 36px;
+      grid-template-columns: minmax(0, 1.02fr) minmax(440px, .82fr);
+      gap: 18px;
       align-items: center;
       min-height: 610px;
     }
@@ -221,7 +221,7 @@
       font-size: clamp(52px, 6vw, 84px);
       line-height: .96;
       letter-spacing: -.04em;
-      max-width: 680px;
+      max-width: 640px;
     }
 
     .subhead {
@@ -274,15 +274,15 @@
 
     .visual {
       position: relative;
-      min-height: 580px;
+      min-height: 560px;
     }
 
     .phone {
       position: absolute;
-      left: 50%;
-      top: 28px;
+      left: 42%;
+      top: 70px;
       transform: translateX(-50%);
-      width: min(300px, 58vw);
+      width: min(268px, 52vw);
       aspect-ratio: 9 / 18.7;
       border-radius: 44px;
       padding: 14px;
@@ -308,7 +308,7 @@
       align-items: center;
       font-size: 11px;
       opacity: .85;
-      margin-bottom: 66px;
+      margin-bottom: 54px;
     }
 
     .signal {
@@ -349,9 +349,9 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: 142px;
-      height: 142px;
-      margin: 54px auto 0;
+      width: 126px;
+      height: 126px;
+      margin: 42px auto 0;
       border-radius: 999px;
       background: radial-gradient(circle, #2379ff 0%, #1769ff 28%, #0e3b99 68%, rgba(10, 40, 118, .2) 100%);
       box-shadow: 0 0 50px rgba(23, 105, 255, .7);
@@ -435,23 +435,23 @@
     }
 
     .order-card {
-      top: 122px;
-      right: 0;
-      width: 230px;
-      padding: 18px;
+      top: 155px;
+      right: 18px;
+      width: 220px;
+      padding: 16px;
     }
 
     .handoff-card {
-      right: 10px;
-      bottom: 38px;
-      width: 218px;
-      padding: 18px;
+      right: 22px;
+      bottom: 60px;
+      width: 220px;
+      padding: 17px;
     }
 
     .quote-card {
-      left: 22px;
-      top: 30px;
-      width: 235px;
+      left: 62px;
+      top: 32px;
+      width: 248px;
       padding: 24px 22px;
       color: #60708d;
       font-family: "Fraunces", Georgia, serif;
@@ -932,6 +932,29 @@
       justify-content: space-between;
       gap: 20px;
       align-items: center;
+    }
+
+    @media (min-width: 1121px) and (max-width: 1280px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(420px, .78fr);
+      }
+
+      .phone {
+        left: 38%;
+        width: 250px;
+      }
+
+      .order-card {
+        right: 0;
+      }
+
+      .handoff-card {
+        right: 0;
+      }
+
+      h1 {
+        font-size: 72px;
+      }
     }
 
     @media (max-width: 1120px) {
