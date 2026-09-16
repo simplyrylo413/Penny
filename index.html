@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23141b25'/%3E%3Cpath d='M18 20h9v24h-9zm19 0h9L36 44h-8z' fill='%23758bf7'/%3E%3C/svg%3E">
   <style>
     :root{--ink:#111720;--paper:#f7f6f1;--acid:#758bf7;--coral:#ff735d;--blue:#6f8cff;--muted:#66707c;--line:rgba(17,23,32,.13);--card:#fff;--radius:28px}
@@ -25,6 +26,393 @@
     @media(max-width:600px){.fly-card.reveal{transform:translate3d(0,24px,0) scale(.99);transition-delay:0ms}.wrap{width:min(100% - 28px,1180px)}.nav{min-height:76px}.brand{width:190px;height:56px;gap:4px}.brand-art{width:120px;height:52px}.brand-logo{width:140px;transform:translate(-10px,-8px)}.brand-by{font-size:7px;margin:23px 0 0 -1px}.navlinks{max-width:none}.navlinks>.nav-link,.navlinks>.nav-cta{display:none}.nav-menu-toggle{width:38px;height:38px}.nav-arrow{font-size:15px}h1{font-size:46px}.hero{gap:25px;padding-top:4px;padding-bottom:70px}.hero-copy{padding-top:10px}.hero-copy h1{margin-left:0}.lead{font-size:18px}.demo-stage{min-height:590px}.blob{width:390px;height:390px}.phone{width:286px;transform:rotateY(-9deg) rotateX(3deg) rotateZ(2deg)}.phone-screen{min-height:525px}.fc1{right:-3px;top:70px}.fc2{left:-2px;bottom:55px}.float-card{padding:11px 13px}.section-intro{margin-bottom:35px}section{padding:78px 0}.flow-wrap{padding:40px 20px;border-radius:28px}.flow-wrap:before{background-size:231px 252px;background-position:-74px -67px;opacity:.32}.steps{grid-template-columns:1fr}.panel{padding:34px 25px;min-height:0}.schedule-box{padding:16px;border-radius:28px}.schedule-copy{padding:32px 24px;border-radius:24px}.form-row{grid-template-columns:1fr}.cta-box{padding:48px 26px}.cta-box:before{background-size:340px 371px;opacity:.1}.use{padding:24px}footer{flex-direction:column;gap:6px}.scribble{white-space:normal}.micro{text-align:center}}
   @media(max-width:430px){.brand{width:164px}.brand-art{width:104px}.brand-logo{width:122px;transform:translate(-9px,-7px)}.brand-by{font-size:6px;margin-top:23px}.nav-menu-toggle{width:36px;height:36px}}
   @media (prefers-reduced-motion:reduce){.reveal,.fly-card.reveal,.fit-panel.reveal,.fit-panel .kicker,.fit-panel h2,.fit-panel p,.fit-panel .feature,.flow-wrap.reveal .flow-head .kicker,.flow-wrap.reveal .flow-head h2,.flow-wrap.reveal .flow-head p,.step .step-no,.step .step-icon,.step h3,.step p,.schedule-box.reveal .schedule-copy,.schedule-box.reveal .schedule-copy .kicker,.schedule-box.reveal .schedule-copy h2,.schedule-box.reveal .schedule-copy p,.schedule-box.reveal .demo-point,.schedule-box.reveal .demo-form label,.schedule-box.reveal .demo-form .primary,.schedule-box.reveal .form-note,.schedule-box.reveal .contact-note{opacity:1;transform:none!important;filter:none!important;transition:none!important;transition-delay:0ms!important;animation:none!important}.step.fly-card.reveal.on:hover,.step.fly-card.reveal.on:focus-visible{transform:none!important}}
+  </style>
+  <style>
+    /* Selected rush comparison header treatment */
+    .rush-label{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      min-height:92px;
+      margin-bottom:17px;
+      text-transform:uppercase;
+      letter-spacing:normal;
+      font:inherit;
+    }
+    .rush-label-bar{
+      width:9px;
+      height:88px;
+      border-radius:999px;
+      background:var(--coral);
+      flex:0 0 auto;
+    }
+    .rush-card.with .rush-label-bar{background:#fff}
+    .rush-label-icon{
+      position:relative;
+      width:78px;
+      height:78px;
+      display:grid;
+      place-items:center;
+      flex:0 0 78px;
+    }
+    .rush-card.without .rush-label-icon{
+      color:var(--coral);
+      font-size:58px;
+    }
+    .rush-card.without .rush-label-icon i{display:block;line-height:1}
+    .rush-label-icon img{
+      display:block;
+      width:78px;
+      height:auto;
+      max-height:78px;
+      object-fit:contain;
+    }
+    .rush-status{
+      position:absolute;
+      left:-5px;
+      top:2px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#34c759;
+      box-shadow:0 0 0 5px rgba(52,199,89,.15);
+      z-index:1;
+    }
+    .rush-label-copy{
+      display:grid;
+      align-content:center;
+      gap:3px;
+      min-width:0;
+    }
+    .rush-label-main{
+      font:800 clamp(34px,3.25vw,48px)/.9 Manrope,sans-serif;
+      letter-spacing:-.06em;
+    }
+    .rush-label-name{
+      font:800 17px/1 Manrope,sans-serif;
+      letter-spacing:.34em;
+      padding-left:.12em;
+    }
+    @media(max-width:600px){
+      .rush-label{gap:10px;min-height:72px;margin-bottom:16px}
+      .rush-label-bar{width:7px;height:68px}
+      .rush-label-icon{width:58px;height:58px;flex-basis:58px}
+      .rush-card.without .rush-label-icon{font-size:43px}
+      .rush-label-icon img{width:58px;max-height:58px}
+      .rush-status{width:13px;height:13px;left:-2px;top:0;box-shadow:0 0 0 4px rgba(52,199,89,.15)}
+      .rush-label-main{font-size:34px}
+      .rush-label-name{font-size:13px;letter-spacing:.3em}
+    }
+  </style>
+  <style>
+    /* Streamlined setup section: unique implementation details without repeating the feature cards. */
+    .fit-section{padding-top:0}
+    .fit-shell{
+      position:relative;
+      overflow:hidden;
+      border-radius:40px;
+      padding:64px;
+      background:var(--ink);
+      color:#fff;
+      box-shadow:0 28px 70px rgba(17,23,32,.14);
+    }
+    .fit-shell:before{
+      content:"";
+      position:absolute;
+      width:430px;
+      height:430px;
+      right:-145px;
+      top:-210px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(117,139,247,.52) 0 2%,rgba(117,139,247,.18) 28%,transparent 68%);
+      pointer-events:none;
+    }
+    .fit-shell:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(125deg,rgba(255,255,255,.035),transparent 38%);
+      pointer-events:none;
+    }
+    .fit-head{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:end;
+      gap:70px;
+      padding-bottom:44px;
+      border-bottom:1px solid rgba(255,255,255,.14);
+    }
+    .fit-head h2{font-size:clamp(42px,5vw,68px);max-width:720px;margin:12px 0 0}
+    .fit-head p{margin:0;color:#c3cad3;font-size:19px;max-width:490px}
+    .fit-proofs{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      padding-top:28px;
+    }
+    .fit-proof{
+      min-height:210px;
+      padding:24px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      background:rgba(255,255,255,.055);
+      transition:transform .28s ease,background .28s ease,border-color .28s ease;
+    }
+    .fit-proof:hover{transform:translateY(-5px);background:rgba(255,255,255,.09);border-color:rgba(117,139,247,.55)}
+    .fit-proof-icon{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      margin-bottom:34px;
+      border-radius:14px;
+      background:var(--acid);
+      color:var(--ink);
+      font:900 19px Manrope,sans-serif;
+    }
+    .fit-proof h3{font-size:21px;letter-spacing:-.035em;margin-bottom:9px}
+    .fit-proof p{margin:0;color:#b9c1cb;font-size:14px;line-height:1.52}
+    .fit-route{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:13px;
+      margin-top:22px;
+      padding:14px 18px;
+      border-radius:18px;
+      background:var(--acid);
+      color:var(--ink);
+      font:800 14px Manrope,sans-serif;
+    }
+    .fit-route span{padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.58)}
+    .fit-route i{font-style:normal;font-size:20px}
+    .fit-shell.reveal .fit-head,.fit-shell.reveal .fit-proof,.fit-shell.reveal .fit-route{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+    .fit-shell.reveal.on .fit-head,.fit-shell.reveal.on .fit-proof,.fit-shell.reveal.on .fit-route{opacity:1;transform:none}
+    .fit-shell.reveal.on .fit-proof:nth-child(1){transition-delay:.16s}
+    .fit-shell.reveal.on .fit-proof:nth-child(2){transition-delay:.24s}
+    .fit-shell.reveal.on .fit-proof:nth-child(3){transition-delay:.32s}
+    .fit-shell.reveal.on .fit-proof:nth-child(4){transition-delay:.4s}
+    .fit-shell.reveal.on .fit-route{transition-delay:.48s}
+    @media(max-width:900px){
+      .fit-shell{padding:48px 36px}
+      .fit-head{grid-template-columns:1fr;gap:24px}
+      .fit-proofs{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:600px){
+      .fit-shell{padding:38px 20px;border-radius:28px}
+      .fit-head{padding-bottom:30px}
+      .fit-head h2{font-size:39px}
+      .fit-head p{font-size:17px}
+      .fit-proofs{grid-template-columns:1fr;gap:10px;padding-top:20px}
+      .fit-proof{min-height:0;padding:19px;display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:center}
+      .fit-proof-icon{grid-row:1 / span 2;margin:0}
+      .fit-proof h3{font-size:19px;margin:0 0 5px}
+      .fit-route{flex-wrap:wrap;gap:8px;padding:13px 10px}
+      .fit-route span{padding:6px 10px;font-size:12px}
+      .fit-route i{font-size:16px}
+    }
+    @media(prefers-reduced-motion:reduce){.fit-shell.reveal .fit-head,.fit-shell.reveal .fit-proof,.fit-shell.reveal .fit-route{opacity:1;transform:none!important;transition:none!important}}
+  </style>
+  <style>
+    /* Photo-led fit section selected for production. */
+    .fit-showcase{
+      position:relative;
+      overflow:hidden;
+      padding:58px 48px 32px;
+      border-radius:40px;
+      background:#111720;
+      color:#fff;
+      box-shadow:0 28px 70px rgba(17,23,32,.15);
+      isolation:isolate;
+    }
+    .fit-watermark{
+      position:absolute;
+      z-index:-1;
+      top:-92px;
+      right:-72px;
+      width:380px;
+      height:auto;
+      opacity:.34;
+      pointer-events:none;
+    }
+    .fit-showcase-head{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:end;
+      gap:64px;
+      margin-bottom:32px;
+    }
+    .fit-showcase-head h2{
+      max-width:600px;
+      margin:10px 0 0;
+      font-size:clamp(44px,5.1vw,68px);
+      line-height:.98;
+    }
+    .fit-showcase-head>p{
+      max-width:470px;
+      margin:0 0 4px;
+      color:#c6ccd5;
+      font-size:18px;
+      line-height:1.55;
+    }
+    .fit-cards{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+    }
+    .fit-card{
+      overflow:hidden;
+      min-width:0;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:21px;
+      background:#fbfbf8;
+      color:var(--ink);
+      box-shadow:0 15px 35px rgba(0,0,0,.16);
+      transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease;
+    }
+    .fit-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,0,0,.22)}
+    .fit-media{position:relative;height:188px;overflow:hidden;background:#d9dce2}
+    .fit-media>img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .65s cubic-bezier(.2,.8,.2,1)}
+    .fit-card:hover .fit-media>img{transform:scale(1.035)}
+    .fit-card-body{padding:20px 20px 22px}
+    .fit-card h3{margin:0 0 8px;font-size:22px;line-height:1.02;letter-spacing:-.045em}
+    .fit-card p{margin:0;color:#637080;font-size:14px;line-height:1.45}
+    .fit-ui{
+      position:absolute;
+      color:#111720;
+      font-family:"DM Sans",sans-serif;
+      box-shadow:0 9px 24px rgba(17,23,32,.18);
+    }
+    .fit-greeting{
+      right:10px;
+      bottom:64px;
+      max-width:132px;
+      padding:9px 11px;
+      border-radius:12px 12px 12px 4px;
+      background:rgba(242,244,255,.94);
+      font-size:11px;
+      font-weight:700;
+      line-height:1.25;
+    }
+    .fit-wave{
+      right:22px;
+      bottom:18px;
+      color:#7188f4;
+      display:grid;
+      width:42px;
+      height:42px;
+      place-items:center;
+      border-radius:50%;
+      background:rgba(242,244,255,.94);
+      font-family:"Font Awesome 6 Free";
+      font-weight:900;
+      font-size:18px;
+      filter:drop-shadow(0 5px 9px rgba(17,23,32,.22));
+    }
+    .fit-routing{
+      top:14px;
+      right:10px;
+      width:172px;
+      padding:9px;
+      border:1px solid rgba(17,23,32,.08);
+      border-radius:14px;
+      background:rgba(255,255,255,.94);
+      font-size:9px;
+    }
+    .fit-routing-head{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:2px 2px 7px;font-weight:800}
+    .fit-live{display:inline-flex;align-items:center;gap:4px;color:#167c42;background:#daf5e3;border-radius:999px;padding:3px 6px}
+    .fit-routing-list{display:grid;gap:4px;border-left:1px dashed #758bf7;margin-left:12px;padding-left:8px}
+    .fit-routing-list span{display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:999px;background:#f0f1f4}
+    .fit-routing-list span:first-child{background:#e5e9ff;font-weight:800;color:#3c52bc}
+    .fit-routing-list i{width:6px;height:6px;border-radius:50%;background:#aeb7c4}
+    .fit-routing-list span:first-child i{background:#637cf1}
+    .fit-ticket{
+      top:12px;
+      right:9px;
+      width:172px;
+      padding:9px;
+      border:1px solid rgba(17,23,32,.08);
+      border-radius:13px;
+      background:rgba(255,255,255,.95);
+      font-size:8px;
+    }
+    .fit-ticket-head,.fit-ticket-row,.fit-ticket-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .fit-ticket-head{padding-bottom:6px;border-bottom:1px solid #e4e7eb;font-weight:900;font-size:10px}
+    .fit-ticket-status{color:#167c42;background:#daf5e3;border-radius:999px;padding:3px 5px;font-size:7px}
+    .fit-ticket-row{padding-top:5px;color:#35404d}
+    .fit-ticket-footer{margin-top:7px;padding-top:7px;border-top:1px solid #e4e7eb;font-weight:800}
+    .fit-clover{display:inline-flex;align-items:center;gap:5px;color:#177f49}
+    .fit-handoff{
+      top:12px;
+      right:9px;
+      width:176px;
+      padding:10px;
+      border:1px solid rgba(17,23,32,.08);
+      border-radius:14px;
+      background:rgba(255,255,255,.95);
+      font-size:8px;
+      line-height:1.25;
+    }
+    .fit-handoff-head{display:flex;align-items:center;gap:7px;font-weight:900;font-size:10px}
+    .fit-handoff-head i{width:24px;height:24px;display:grid;place-items:center;border-radius:9px;background:#e5e9ff;color:#6078e8}
+    .fit-handoff small{display:block;color:#74808d;font-weight:600}
+    .fit-handoff-quote{margin:7px 0;padding:7px 8px;border-radius:9px;background:#eef1ff;font-size:9px}
+    .fit-handoff-details{display:grid;grid-template-columns:12px 1fr;gap:4px 5px}
+    .fit-handoff-details i{color:#1f2a37}
+    .fit-workflow{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 50px minmax(0,.72fr) 50px minmax(0,1fr);
+      align-items:center;
+      gap:10px;
+      margin-top:18px;
+      padding:13px 18px;
+      border:1px solid rgba(117,139,247,.22);
+      border-radius:18px;
+      background:#f4f5fb;
+      color:var(--ink);
+      box-shadow:inset 0 1px 0 #fff;
+    }
+    .fit-workflow-node{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:8px 15px;border:1px solid rgba(17,23,32,.08);border-radius:999px;background:#fff;font:800 13px Manrope,sans-serif;box-shadow:0 7px 18px rgba(17,23,32,.06);text-align:center}
+    .fit-workflow-node>i{width:31px;height:31px;display:grid;place-items:center;border-radius:50%;background:#eef1ff;color:#1d2835}
+    .fit-workflow-node.penny{border-color:transparent;background:#7188f4;color:#fff;font-size:19px}
+    .fit-workflow-node.penny img{width:31px;height:31px;object-fit:contain}
+    .fit-workflow-arrow{text-align:center;font-size:25px;font-weight:400}
+    .fit-showcase.reveal .fit-showcase-head,.fit-showcase.reveal .fit-card,.fit-showcase.reveal .fit-workflow{opacity:0;transform:translateY(18px);transition:opacity .58s cubic-bezier(.2,.7,.2,1),transform .58s cubic-bezier(.2,.7,.2,1)}
+    .fit-showcase.reveal.on .fit-showcase-head,.fit-showcase.reveal.on .fit-card,.fit-showcase.reveal.on .fit-workflow{opacity:1;transform:none}
+    .fit-showcase.reveal.on .fit-card:nth-child(1){transition-delay:.12s}.fit-showcase.reveal.on .fit-card:nth-child(2){transition-delay:.2s}.fit-showcase.reveal.on .fit-card:nth-child(3){transition-delay:.28s}.fit-showcase.reveal.on .fit-card:nth-child(4){transition-delay:.36s}.fit-showcase.reveal.on .fit-workflow{transition-delay:.44s}
+    @media(max-width:980px){
+      .fit-showcase{padding:48px 34px 28px}
+      .fit-showcase-head{grid-template-columns:1fr;gap:20px}
+      .fit-showcase-head>p{max-width:690px}
+      .fit-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .fit-media{height:225px}
+      .fit-workflow{grid-template-columns:1fr 34px 1fr 34px 1fr;padding:12px}
+    }
+    @media(max-width:620px){
+      .fit-showcase{padding:36px 16px 18px;border-radius:28px}
+      .fit-watermark{top:-48px;right:-80px;width:250px;opacity:.28}
+      .fit-showcase-head{margin-bottom:24px}
+      .fit-showcase-head h2{font-size:39px}
+      .fit-showcase-head>p{font-size:16px}
+      .fit-cards{grid-template-columns:1fr;gap:12px}
+      .fit-media{height:220px}
+      .fit-card-body{padding:18px 18px 20px}
+      .fit-card h3{font-size:21px}
+      .fit-workflow{grid-template-columns:1fr;gap:7px;padding:10px}
+      .fit-workflow-arrow{height:20px;line-height:20px;transform:rotate(90deg)}
+      .fit-workflow-node{width:100%}
+    }
+    @media(prefers-reduced-motion:reduce){.fit-showcase.reveal .fit-showcase-head,.fit-showcase.reveal .fit-card,.fit-showcase.reveal .fit-workflow{opacity:1;transform:none!important;transition:none!important}.fit-card:hover,.fit-card:hover .fit-media>img{transform:none}}
   </style>
 </head>
 <body>
@@ -88,10 +476,10 @@
       </div>
     </div></section>
 
-    <section class="rush-section"><div class="wrap rush-wrap reveal">
+    <section id="how" class="rush-section"><div class="wrap rush-wrap reveal">
       <div class="rush-head"><div class="kicker">The cost of a ringing phone</div><h2>Friday night. The phone won’t stop. Your team shouldn’t have to.</h2><p>One call becomes either an interruption and a lost order—or revenue already headed to the kitchen.</p></div>
       <div class="rush-grid">
-        <article class="rush-card without"><div class="rush-label">Without Penny</div><h3>The order walks away.</h3><div class="rush-steps">
+        <article class="rush-card without"><div class="rush-label"><span class="rush-label-bar" aria-hidden="true"></span><span class="rush-label-icon" aria-hidden="true"><i class="fa-solid fa-phone-volume"></i></span><span class="rush-label-copy"><span class="rush-label-main">Without</span><span class="rush-label-name">Penny</span></span></div><h3>The order walks away.</h3><div class="rush-steps">
           <div class="rush-step"><span class="rush-n">1</span><span class="rush-icon">☎</span><b>Phone rings</b></div>
           <div class="rush-step"><span class="rush-n">2</span><span class="rush-icon">↗</span><b>Employee leaves the floor</b></div>
           <div class="rush-step"><span class="rush-n">3</span><span class="rush-icon">◷</span><b>Guest waits</b></div>
@@ -99,7 +487,7 @@
           <div class="rush-step danger"><span class="rush-n">5</span><span class="rush-icon">−</span><b>Order is lost</b></div>
         </div></article>
         <div class="rush-vs" aria-hidden="true">VS</div>
-        <article class="rush-card with"><div class="rush-label">With Penny</div><h3>The order gets taken. Your team keeps serving.</h3><div class="rush-steps">
+        <article class="rush-card with"><div class="rush-label"><span class="rush-label-bar" aria-hidden="true"></span><span class="rush-label-icon" aria-hidden="true"><span class="rush-status"></span><img src="assets/penny-mark.png" alt=""></span><span class="rush-label-copy"><span class="rush-label-main">With</span><span class="rush-label-name">Penny</span></span></div><h3>The order gets taken. Your team keeps serving.</h3><div class="rush-steps">
           <div class="rush-step"><span class="rush-n">1</span><span class="rush-icon">☎</span><b>Phone rings</b></div>
           <div class="rush-step"><span class="rush-n">2</span><span class="rush-icon">P</span><b>Penny answers instantly</b></div>
           <div class="rush-step"><span class="rush-n">3</span><span class="rush-icon">▤</span><b>Order is taken</b></div>
@@ -111,14 +499,31 @@
       <div class="rush-result"><span>✓</span>More orders. Higher checks. No one pulled off the floor.</div>
     </div></section>
 
-    <section id="how" style="padding-top:0"><div class="wrap flow-wrap reveal">
-      <div class="flow-head"><div class="kicker">From ring to ready</div><h2>One smooth conversation.</h2><p>Your phone keeps ringing like normal. Behind the scenes, Penny turns the call into an action your team can use.</p></div>
-      <div class="steps"><div class="step"><div class="step-head"><div class="step-no">STEP 01</div><div class="step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6.4 6.4l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"></path></svg></div></div><h3>A guest calls</h3><p>Your existing number can stay the front door.</p></div><div class="step"><div class="step-head"><div class="step-no">STEP 02</div><div class="step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path><path d="M5 16l.9 2.1L8 19l-2.1.9L5 22l-.9-2.1L2 19l2.1-.9L5 16z"></path><path d="M19 2l.7 1.6L21 4l-1.3.4L19 6l-.7-1.6L17 4l1.3-.4L19 2z"></path></svg></div></div><h3>AI picks up</h3><p>A natural greeting tailored to your restaurant.</p></div><div class="step"><div class="step-head"><div class="step-no">STEP 03</div><div class="step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></div></div><h3>The need is handled</h3><p>Order, question or intentional transfer.</p></div><div class="step"><div class="step-head"><div class="step-no">STEP 04</div><div class="step-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.9"></path><path d="M16 3.1a4 4 0 0 1 0 7.8"></path></svg></div></div><h3>Your team gets it</h3><p>A clear summary reaches the right workflow.</p></div></div>
-    </div></section>
-
-    <section id="fit" style="padding-top:0"><div class="wrap split">
-      <div class="panel dark reveal"><div class="kicker" style="color:var(--acid)">Sounds like your place</div><h2>Warm, capable and never robotic.</h2><p>We tune the assistant around the way your restaurant actually talks—from pronunciation and menu details to what should always reach a person.</p><div class="feature-list"><div class="feature"><span class="ico">◉</span><b>Brand-matched greeting and voice</b></div><div class="feature"><span class="ico">≋</span><b>Menu, modifier and policy knowledge</b></div><div class="feature"><span class="ico">↗</span><b>Thoughtful human handoff rules</b></div></div></div>
-      <div class="panel acid reveal"><div class="kicker">Fits the operation</div><h2>Designed to work with what you run.</h2><p>Connect Penny to Clover so orders can flow directly into your existing operation. Penny can also be configured around your phone number, ordering workflow and other integrations.</p><div class="feature-list"><div class="feature"><span class="ico">☎</span><b>Keep your customer-facing number</b></div><div class="feature"><span class="ico">▣</span><b>Structured orders for the kitchen</b></div><div class="feature"><span class="ico">＋</span><b>Custom integrations as needed</b></div></div></div>
+    <section id="fit" class="fit-section"><div class="wrap fit-showcase reveal">
+      <img class="fit-watermark" src="assets/incyte-brandmark.svg" alt="" aria-hidden="true">
+      <div class="fit-showcase-head">
+        <div><div class="kicker" style="color:var(--acid)">One setup. Your operation.</div><h2>Penny fits the way your restaurant already works.</h2></div>
+        <p>We configure the voice, phone routing, integration and handoff rules around your restaurant—so adopting Penny feels like adding a capable team member, not changing your entire operation.</p>
+      </div>
+      <div class="fit-cards">
+        <article class="fit-card">
+          <div class="fit-media"><img src="assets/fit-grandmother-ordering.webp" alt="A grandmother at home ordering food by phone" loading="lazy"><span class="fit-ui fit-greeting">Good evening!<br>Thanks for calling...</span><i class="fit-ui fit-wave fa-solid fa-volume-high" aria-hidden="true"></i></div>
+          <div class="fit-card-body"><h3>Sounds like your brand</h3><p>Your greeting, tone and pronunciations are tuned for your restaurant.</p></div>
+        </article>
+        <article class="fit-card">
+          <div class="fit-media"><img src="assets/fit-restaurant-phone.webp" alt="Restaurant phone at a host stand" loading="lazy"><div class="fit-ui fit-routing"><div class="fit-routing-head"><b>(415) 555-0123</b><span class="fit-live">● Active</span></div><div class="fit-routing-list"><span><i></i>Penny (AI)</span><span><i></i>Order taking</span><span><i></i>Reservations</span><span><i></i>Team member</span></div></div></div>
+          <div class="fit-card-body"><h3>Keeps your number</h3><p>Guests call the number they already know. Penny handles the routing behind it.</p></div>
+        </article>
+        <article class="fit-card">
+          <div class="fit-media"><img src="assets/fit-pos-order.webp" alt="Restaurant staff member entering an order in a point-of-sale system" loading="lazy"><div class="fit-ui fit-ticket"><div class="fit-ticket-head"><span>New Order</span><span class="fit-ticket-status">● Sent to POS</span></div><div class="fit-ticket-row"><span>1 &nbsp; BBQ Chicken Sandwich</span><b>$14.00</b></div><div class="fit-ticket-row"><span>1 &nbsp; Caesar Salad</span><b>$12.00</b></div><div class="fit-ticket-row"><span>1 &nbsp; Iced Tea</span><b>$3.00</b></div><div class="fit-ticket-footer"><span class="fit-clover"><i class="fa-solid fa-clover" aria-hidden="true"></i> Clover</span><span>Order sent&nbsp; ✓</span></div></div></div>
+          <div class="fit-card-body"><h3>Connects to your workflow</h3><p>Send structured orders into Clover or configure another integration your team uses.</p></div>
+        </article>
+        <article class="fit-card">
+          <div class="fit-media"><img src="assets/fit-human-handoff.webp" alt="Restaurant manager receiving a contextual customer handoff" loading="lazy"><div class="fit-ui fit-handoff"><div class="fit-handoff-head"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Handoff to your team<small>All details captured</small></span></div><div class="fit-handoff-quote">“I have a large group for Saturday...”</div><div class="fit-handoff-details"><i class="fa-solid fa-user" aria-hidden="true"></i><span>Guest: Taylor M.</span><i class="fa-solid fa-phone" aria-hidden="true"></i><span>(415) 555-0123</span><i class="fa-solid fa-clipboard" aria-hidden="true"></i><span>Needs: 12 people, 7pm, patio if available</span></div></div></div>
+          <div class="fit-card-body"><h3>Hands off with context</h3><p>Only when a call needs a person—and with the important details already captured.</p></div>
+        </article>
+      </div>
+      <div class="fit-workflow" aria-label="Penny call workflow"><span class="fit-workflow-node"><i class="fa-solid fa-phone" aria-hidden="true"></i>Your existing number</span><span class="fit-workflow-arrow" aria-hidden="true">→</span><span class="fit-workflow-node penny"><img src="assets/penny-mark.png" alt="" aria-hidden="true">Penny</span><span class="fit-workflow-arrow" aria-hidden="true">→</span><span class="fit-workflow-node"><i class="fa-solid fa-cash-register" aria-hidden="true"></i>Clover or your team</span></div>
     </div></section>
 
     <section id="schedule" class="schedule-demo"><div class="wrap schedule-box reveal">
