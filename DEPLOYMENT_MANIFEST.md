@@ -1,6 +1,6 @@
 # Penny Deployment Manifest
 
-> **Status: BLOCKED — exact Netlify site identity is still required**
+> **Status: READY — deployment identity confirmed**
 >
 > This file is the source of truth for Penny deployment identity. Read it before editing, syncing, committing, or deploying Penny. Do not deploy while a field marked `REQUIRED` remains unresolved.
 
@@ -29,9 +29,9 @@
 
 | Field | Value |
 |---|---|
-| Netlify account/team | Same account/team used by `anythinggoessolutions/Incyte-Works`; exact label `REQUIRED` |
+| Netlify account/team | `jrubenstein313’s team` |
 | Netlify site name | `incyte.works` |
-| Netlify site ID | `REQUIRED` |
+| Netlify site ID | `420a4e45-4038-4473-97eb-3b2feedd2d25` |
 | Git-connected production repo | `anythinggoessolutions/Incyte-Works` |
 | Publish behavior | Static site; no build step; publish repository root |
 
@@ -189,5 +189,4 @@ If verification fails:
 
 ## Information still required
 
-- Exact Netlify account/team label
-- Exact immutable Netlify site ID
+- None
