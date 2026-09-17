@@ -1,134 +1,154 @@
 # Penny Deployment Manifest
 
-> **Status: BLOCKED — production target must be confirmed**
+> **Status: BLOCKED — exact Netlify site identity is still required**
 >
-> This file is the source of truth for Penny deployment identity. Read it before editing, committing, syncing, or deploying Penny. A production deployment is not authorized while any field marked `REQUIRED` or `UNCONFIRMED` remains unresolved.
+> This file is the source of truth for Penny deployment identity. Read it before editing, syncing, committing, or deploying Penny. Do not deploy while a field marked `REQUIRED` remains unresolved.
 
-## Project identity
+## Confirmed project identity
 
-| Field | Value |
+| Field | Confirmed value |
 |---|---|
 | Project | Penny by Incyte Works |
-| Project type | Static landing page / product page |
-| Penny source repository | `simplyrylo413/Penny` |
-| Source branch | `main` |
-| Source entry point | `index.html` |
-| Source assets | `assets/**` |
-| Intended production URL | `https://incyte.works/penny/` |
+| Canonical Penny source repository | `simplyrylo413/Penny` |
+| Penny GitHub repository ID | `1366567622` |
+| Penny source branch | `main` |
+| Penny source entry point | `index.html` |
+| Penny source assets | `assets/**` |
+| Production repository | `anythinggoessolutions/Incyte-Works` |
+| Production GitHub repository ID | `1333789134` |
+| Production branch | `main` |
+| Penny destination directory | `penny/` |
+| Production entry point | `penny/index.html` |
+| Production assets | `penny/assets/**` |
+| Netlify publish directory | Repository root: `.` |
+| Production domain | `https://incyte.works` |
+| Production route | `/penny/` |
 | Deployment scope | Penny page and Penny-specific assets only |
 
-## Production target
+## Netlify identity
 
 | Field | Value |
 |---|---|
-| Full-site deployment repository | `UNCONFIRMED` — expected candidate: `anythinggoessolutions/Incyte-Works` |
-| Production branch | `UNCONFIRMED` |
-| Penny destination directory | `UNCONFIRMED` |
+| Netlify account/team | Same account/team used by `anythinggoessolutions/Incyte-Works`; exact label `REQUIRED` |
 | Netlify site name | `REQUIRED` |
 | Netlify site ID | `REQUIRED` |
-| Netlify team/account | `REQUIRED` |
-| Production domain | `https://incyte.works` |
-| Production route | `/penny/` |
+| Git-connected production repo | `anythinggoessolutions/Incyte-Works` |
+| Publish behavior | Static site; no build step; publish repository root |
 
-## Repository roles
+The Netlify connection available when this manifest was created did not expose the correct Incyte production project. Do not substitute a similarly named Netlify project. Match the exact immutable site ID.
 
-- `simplyrylo413/Penny` is Penny's standalone **source repository**.
-- It must not be assumed to be the repository that deploys the entire `incyte.works` website.
-- The repository or complete bundle that owns `https://incyte.works` must be identified before production deployment.
-- Penny files may be synced into the confirmed full-site project only after reviewing the changed-file list.
+## Deployment architecture
+
+Penny uses two repositories with different roles:
+
+1. `simplyrylo413/Penny` is the canonical working/source repository for Penny.
+2. Approved Penny files are copied into `anythinggoessolutions/Incyte-Works/penny/`.
+3. The Incyte Works repository contains the complete production site.
+4. Its `netlify.toml` publishes the repository root and routes both `/penny` and `/penny/` to `/penny/index.html`.
+5. Netlify deploys the complete Incyte Works site. There is no safe page-only Netlify deployment.
+
+### Required source-to-production mapping
+
+| Penny source | Incyte Works production copy |
+|---|---|
+| `index.html` | `penny/index.html` |
+| `assets/**` | `penny/assets/**` |
+
+Do not copy the Penny repository root over the Incyte Works repository root.
 
 ## Hard deployment rules
 
-1. **Never deploy this standalone repository directly over the Netlify site serving `incyte.works`.** A Netlify production deploy replaces the site's deployed bundle; it is not a file-level or page-only upload.
-2. **Never deploy until all fields in “Production target” are confirmed.**
-3. Before any production write, state and verify:
-   - source repository and branch;
-   - full-site deployment repository and branch;
-   - Penny destination directory;
-   - Netlify team/account, site name, and immutable site ID;
-   - production domain and route;
-   - exact files that will change.
-4. Penny work must be limited to the Penny destination directory and Penny-specific assets. Do not modify unrelated Incyte pages unless explicitly requested.
-5. Do not use a Netlify site selected only by a similar name. Match the immutable Netlify site ID.
-6. Do not use conversation memory alone for deployment identity. Read this manifest and verify the current Git remote and Netlify target.
-7. Do not deploy if the local checkout is dirty with unrelated changes.
-8. Do not include secrets, tokens, credentials, or local environment files in commits or deploy bundles.
+1. **Never deploy `simplyrylo413/Penny` directly over the Netlify site serving `incyte.works`.**
+2. **Never deploy until the exact Netlify account/team, site name, and immutable site ID are recorded above.**
+3. Use `simplyrylo413/Penny` for Penny edits and `anythinggoessolutions/Incyte-Works/penny/` for the production copy.
+4. A Penny-only request authorizes changes only to:
+   - `penny/index.html`;
+   - `penny/assets/**`;
+   - Penny-specific routing or documentation when explicitly necessary.
+5. Do not modify the Incyte homepage or unrelated files for a Penny-only request.
+6. Before every production deployment, state and verify:
+   - source repo, branch, and commit;
+   - production repo, branch, and commit;
+   - exact files changed;
+   - Netlify account/team, site name, and immutable site ID;
+   - production domain and route.
+7. Do not select a deployment target by name alone.
+8. Do not rely on conversation memory alone. Read this manifest, verify both Git remotes, and verify the Netlify site ID.
+9. Do not deploy a dirty working tree containing unrelated changes.
+10. Do not commit credentials, tokens, local environment files, or Netlify authentication data.
 
 ## Required deployment workflow
 
-### 1. Verify source
+### 1. Edit and verify the Penny source
 
-- Confirm the active source is `simplyrylo413/Penny` on `main`.
-- Pull or fetch the latest source before editing.
-- Review `git status`, `git remote -v`, and the current branch.
-- Preview `index.html` locally and test responsive behavior.
+- Work in `simplyrylo413/Penny` on `main`.
+- Fetch the latest remote state before editing.
+- Confirm the Git remote and current branch.
+- Preview `index.html` locally.
+- Test responsive layout, links, navigation, forms, and animations.
+- Review every changed file and commit only Penny changes.
 
-### 2. Review Penny changes
+### 2. Sync the approved files
 
-- List every changed file.
-- Confirm all changes belong to Penny.
-- Check that referenced files exist under `assets/**`.
-- Check links, navigation, forms, animations, and mobile layout.
-- Commit only the intended Penny files.
+- Open `anythinggoessolutions/Incyte-Works` on `main`.
+- Copy `index.html` to `penny/index.html`.
+- Sync `assets/**` to `penny/assets/**`.
+- Do not replace or delete files outside `penny/`.
+- Review the production repository's changed-file list before committing.
+- Confirm the synced Penny files match their canonical source.
 
-### 3. Sync into the confirmed production project
+### 3. Verify the complete production site
 
-- Open the confirmed full-site deployment repository or complete production bundle.
-- Sync only the approved Penny page and Penny-specific assets into the confirmed Penny destination directory.
-- Preserve the rest of the Incyte site.
-- Review the resulting full-site changed-file list before building.
+The production repo is a static site with no build step. Preview the complete repository root and test at minimum:
 
-### 4. Build and verify the complete site
+- `/`
+- `/penny/`
+- one representative non-Penny asset or route
 
-- Run the production project's documented install and build commands.
-- Verify the build output includes both the Incyte homepage and the Penny route.
-- Test at minimum:
-  - `/`
-  - `/penny/`
-  - a representative existing non-Penny route
-- Stop if the root site disappears, unrelated routes change, or the Penny path resolves incorrectly.
+Stop if the homepage disappears, an unrelated file changes, or the Penny route resolves incorrectly.
 
-### 5. Pre-deploy declaration
+### 4. Pre-deploy declaration
 
-Before deploying, report this exact checklist with resolved values:
+Before deploying, report this checklist with resolved values:
 
 ```text
-SOURCE REPO:
-SOURCE BRANCH:
-SOURCE COMMIT:
+PENNY SOURCE REPO: simplyrylo413/Penny
+PENNY SOURCE BRANCH: main
+PENNY SOURCE COMMIT:
 
-DEPLOY REPO OR BUNDLE:
-DEPLOY BRANCH:
-PENNY DESTINATION:
+PRODUCTION REPO: anythinggoessolutions/Incyte-Works
+PRODUCTION BRANCH: main
+PRODUCTION COMMIT:
+PENNY DESTINATION: penny/
 
-NETLIFY TEAM/ACCOUNT:
+NETLIFY ACCOUNT/TEAM:
 NETLIFY SITE NAME:
 NETLIFY SITE ID:
 
-PRODUCTION DOMAIN:
-PRODUCTION ROUTE:
+PRODUCTION DOMAIN: https://incyte.works
+PRODUCTION ROUTE: /penny/
 FILES CHANGED:
-BUILD RESULT:
+FULL-SITE VERIFICATION RESULT:
 ```
 
 If any value is missing or inconsistent with this manifest, stop.
 
-### 6. Deploy and verify
+### 5. Deploy and verify
 
-- Deploy the complete validated production output to the confirmed Netlify site ID.
+- Deploy the complete validated Incyte Works repository to the confirmed Netlify site ID.
 - Verify `https://incyte.works/` still loads correctly.
 - Verify `https://incyte.works/penny/` loads the intended Penny version.
 - Check desktop and mobile rendering.
-- Record the source commit, production commit if different, Netlify deploy ID, deployment time, and verification result.
+- Record the commits, Netlify deploy ID, deployment time, and verification results.
 
 ## Rollback
 
-If production verification fails:
+If verification fails:
 
 1. Stop further deployments.
 2. Restore the last known-good Netlify production deploy.
 3. Verify both `/` and `/penny/`.
-4. Revert only the faulty Penny integration commit when needed; do not discard unrelated work.
+4. Revert only the faulty Penny integration commit if needed; preserve unrelated work.
 5. Record the rollback deploy ID and Git commit.
 
 ## Deployment record template
@@ -148,10 +168,6 @@ If production verification fails:
 
 ## Information still required
 
-- Exact Netlify team/account
+- Exact Netlify account/team label
 - Exact Netlify site name
 - Exact immutable Netlify site ID
-- Confirmed full-site deployment repository, if used
-- Confirmed production branch
-- Confirmed destination directory for Penny inside the full-site project
-- Confirmed sync/deployment method
