@@ -77,6 +77,27 @@ Do not copy the Penny repository root over the Incyte Works repository root.
 9. Do not deploy a dirty working tree containing unrelated changes.
 10. Do not commit credentials, tokens, local environment files, or Netlify authentication data.
 
+## Mandatory preview-or-publish confirmation
+
+Before committing or pushing changes to the production repository, or initiating any Netlify deployment:
+
+1. Verify and report the exact:
+   - GitHub repository;
+   - branch;
+   - Netlify account/team;
+   - Netlify site name;
+   - immutable Netlify site ID;
+   - production domain;
+   - route and file scope.
+2. Confirm that all values match this manifest.
+3. Ask the user to choose one:
+   - **Preview locally** — open and inspect the complete site in a local browser; make no live production changes.
+   - **Publish live** — commit/push the approved production files and allow the confirmed Netlify project to publish them to the live domain.
+4. Do not infer the choice from prior deployments, urgency, or the phrase “deploy.” Obtain an explicit choice for the current change.
+5. If the user chooses a local preview, do not push to the production repository and do not trigger Netlify.
+6. If the user chooses live publishing, repeat the verified repository, Netlify site, domain, and scope immediately before the production action.
+7. Treat a push to `anythinggoessolutions/Incyte-Works/main` as a live-production action because Netlify may deploy that branch automatically.
+
 ## Required deployment workflow
 
 ### 1. Edit and verify the Penny source
