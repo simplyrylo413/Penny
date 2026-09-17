@@ -30,7 +30,7 @@
 | Field | Value |
 |---|---|
 | Netlify account/team | Same account/team used by `anythinggoessolutions/Incyte-Works`; exact label `REQUIRED` |
-| Netlify site name | `REQUIRED` |
+| Netlify site name | `incyte.works` |
 | Netlify site ID | `REQUIRED` |
 | Git-connected production repo | `anythinggoessolutions/Incyte-Works` |
 | Publish behavior | Static site; no build step; publish repository root |
@@ -169,5 +169,4 @@ If verification fails:
 ## Information still required
 
 - Exact Netlify account/team label
-- Exact Netlify site name
 - Exact immutable Netlify site ID
